@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class GridBehavior : MonoBehaviour
 {
-    public GameObject followerSpherePrefab; // Reference to the sphere prefab
-    private GameObject followerSphere;      // The sphere instance
+    public GameObject followerSpherePrefab; 
+    private GameObject followerSphere;      
     public float moveSpeed = 2.0f;
 
     public int rows = 10;
@@ -70,22 +70,14 @@ public class GridBehavior : MonoBehaviour
         {
             for (int j = 0; j < rows; j++)
             {
-                // Check if the gridSpherePrefab is assigned
                 if (gridPrefab)
                 {
-                    // Instantiate the prefab for each grid cell
                     GameObject obj = Instantiate(gridPrefab, new Vector3(leftBottomLocation.x + scale * i, leftBottomLocation.y, leftBottomLocation.z + scale * j), Quaternion.identity);
-
-                    // Set the name and parent
                     obj.name = $"Grid_{i}_{j}";
                     obj.transform.SetParent(gameObject.transform);
-
-                    // Add the GridStat component (or any other relevant components)
                     obj.AddComponent<GridStat>();
                     obj.GetComponent<GridStat>().x = i;
                     obj.GetComponent<GridStat>().y = j;
-
-                    // Add the object to the grid array
                     gridArray[i, j] = obj;
                 }
                 else
@@ -119,11 +111,11 @@ public class GridBehavior : MonoBehaviour
         int x = endX;
         int y = endY;
         List<GameObject> tempList = new List<GameObject>();
-        path.Clear();  // Ensure the path is cleared at the start of this function
+        path.Clear();  
 
         if (gridArray[endX, endY] != null && gridArray[endX, endY].GetComponent<GridStat>().visited > 0)
         {
-            path.Add(gridArray[x, y]);  // Add the endpoint to the path
+            path.Add(gridArray[x, y]);  
             step = gridArray[x, y].GetComponent<GridStat>().visited - 1;
         }
         else
@@ -132,10 +124,9 @@ public class GridBehavior : MonoBehaviour
             return;
         }
 
-        // Calculate the path by working backward from the endpoint to the start
         for (int i = step; step > -1; step--)
         {
-            tempList.Clear();  // Clear the temp list before adding new options
+            tempList.Clear(); 
 
             if (TestDirection(x, y, step, 1)) tempList.Add(gridArray[x, y + 1]);
             if (TestDirection(x, y, step, 2)) tempList.Add(gridArray[x + 1, y]);
@@ -145,13 +136,12 @@ public class GridBehavior : MonoBehaviour
             GameObject tempObj = FindClosest(gridArray[endX, endY].transform, tempList);
             if (tempObj != null)
             {
-                path.Add(tempObj);  // Add the closest valid point to the path
+                path.Add(tempObj);
                 x = tempObj.GetComponent<GridStat>().x;
                 y = tempObj.GetComponent<GridStat>().y;
             }
         }
 
-        // Reverse the path so it moves from start to end
         path.Reverse();
 
         StartCoroutine(MoveAlongPath());
@@ -262,10 +252,10 @@ public class GridBehavior : MonoBehaviour
 
     void InitialSetup()
     {
-        // Reset the visited state of all grid cells
+ 
         foreach (GameObject obj in gridArray)
         {
-            if (obj != null) // Ensure the cell is not null (in case it has been deleted)
+            if (obj != null) 
             {
                 obj.GetComponent<GridStat>().visited = -1;
             }

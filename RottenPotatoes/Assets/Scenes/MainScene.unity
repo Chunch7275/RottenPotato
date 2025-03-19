@@ -776,8 +776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followerSpherePrefab: {fileID: 5577188098675781562, guid: 9c9b1c1740c28c642b0118e24124544f, type: 3}
   moveSpeed: 4
-  rows: 100
-  columns: 100
+  rows: 400
+  columns: 400
   scale: 1
   gridPrefab: {fileID: 8513434805340741656, guid: b6673399379f911488430fbe8383d1b7, type: 3}
   leftBottomLocation: {x: 0, y: 0, z: 0}

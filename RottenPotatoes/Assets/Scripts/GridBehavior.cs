@@ -1,14 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GridBehavior : MonoBehaviour
 {
-    public GameObject followerSpherePrefab; 
-    private GameObject followerSphere;      
+    public GameObject followerSpherePrefab;
+    private GameObject followerSphere;
     public float moveSpeed = 2.0f;
 
     public int rows = 10;
@@ -22,22 +20,20 @@ public class GridBehavior : MonoBehaviour
     public int endX = 2;
     public int endY = 2;
     public bool FindDistance = false;
+    private bool pathChanged = true;
+  private bool isMoving = false; // New flag to check if sphere is moving
     public List<GameObject> path = new List<GameObject>();
 
-
-    // Start is called before the first frame update
     void Awake()
     {
         gridArray = new GameObject[columns, rows];
 
         if (gridPrefab)
             GenerateGrid();
-        else print("missing grid");
+        else
+            print("missing grid");
 
-
-        //move
-
-        if(followerSpherePrefab)
+        if (followerSpherePrefab)
         {
             followerSphere = Instantiate(followerSpherePrefab, gridArray[startX, startY].transform.position, Quaternion.identity);
         }
@@ -45,25 +41,24 @@ public class GridBehavior : MonoBehaviour
         {
             Debug.Log("Missing Root Prefab");
         }
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(FindDistance)
+        if (FindDistance && pathChanged && !isMoving) // Only find path if not moving
         {
-            SetDistance();
-            SetPath();
+            AStarPathfinding();
+            pathChanged = false;
             FindDistance = false;
-
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0) && !isMoving) // Only detect click if not moving
         {
             DetectGridClick();
+            pathChanged = true;
         }
     }
+
     void GenerateGrid()
     {
         for (int i = 0; i < columns; i++)
@@ -82,210 +77,198 @@ public class GridBehavior : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Grid Sphere Prefab is missing!");
+                    Debug.Log("Grid Prefab is missing!");
                 }
             }
         }
     }
-    void SetDistance()
+
+    void AStarPathfinding()
     {
         InitialSetup();
-        int x = startX;
-        int y = startY;
-        int[] testArray = new int[rows * columns];
-        for (int step = 1; step < rows * columns; step++)
-        {
-            foreach (GameObject obj in gridArray)
-            {
-                if (obj && obj.GetComponent<GridStat>().visited == step - 1)
-                    TestFourDirections(obj.GetComponent<GridStat>().x, obj.GetComponent<GridStat>().y, step);
+        List<GameObject> openSet = new List<GameObject>();
+        HashSet<GameObject> closedSet = new HashSet<GameObject>();
 
+        GameObject startNode = gridArray[startX, startY];
+        GameObject endNode = gridArray[endX, endY];
+
+        openSet.Add(startNode);
+
+        while (openSet.Count > 0)
+        {
+            GameObject current = openSet[0];
+            for (int i = 1; i < openSet.Count; i++)
+            {
+                GridStat currentStat = current.GetComponent<GridStat>();
+                GridStat nextStat = openSet[i].GetComponent<GridStat>();
+                if (nextStat.fCost < currentStat.fCost || (nextStat.fCost == currentStat.fCost && nextStat.hCost < currentStat.hCost))
+                {
+                    current = openSet[i];
+                }
+            }
+
+            openSet.Remove(current);
+            closedSet.Add(current);
+
+            if (current == endNode)
+            {
+                RetracePath(startNode, endNode);
+                return;
+            }
+
+            foreach (GameObject neighbor in GetNeighbors(current))
+            {
+                if (closedSet.Contains(neighbor)) continue;
+
+                GridStat neighborStat = neighbor.GetComponent<GridStat>();
+                GridStat currentStat = current.GetComponent<GridStat>();
+
+                if (!neighborStat.isWalkable || closedSet.Contains(neighbor)) continue; // Skip unwalkable or already closed neighbors
+
+                int newCostToNeighbor = currentStat.gCost + GetDistance(current, neighbor);
+                if (newCostToNeighbor < neighborStat.gCost || !openSet.Contains(neighbor))
+                {
+                    neighborStat.gCost = newCostToNeighbor;
+                    neighborStat.hCost = GetDistance(neighbor, endNode);
+                    neighborStat.parent = current;
+
+                    if (!openSet.Contains(neighbor))
+                        openSet.Add(neighbor);
+                }
             }
         }
-
-
     }
-    void SetPath()
+
+    void RetracePath(GameObject startNode, GameObject endNode)
     {
-        int step;
-        int x = endX;
-        int y = endY;
-        List<GameObject> tempList = new List<GameObject>();
-        path.Clear();  
+        path.Clear();
+        GameObject currentNode = endNode;
 
-        if (gridArray[endX, endY] != null && gridArray[endX, endY].GetComponent<GridStat>().visited > 0)
+        while (currentNode != startNode)
         {
-            path.Add(gridArray[x, y]);  
-            step = gridArray[x, y].GetComponent<GridStat>().visited - 1;
+            path.Add(currentNode);
+            currentNode = currentNode.GetComponent<GridStat>().parent;
         }
-        else
-        {
-            Debug.Log("Move not available");
-            return;
-        }
-
-        for (int i = step; step > -1; step--)
-        {
-            tempList.Clear(); 
-
-            if (TestDirection(x, y, step, 1)) tempList.Add(gridArray[x, y + 1]);
-            if (TestDirection(x, y, step, 2)) tempList.Add(gridArray[x + 1, y]);
-            if (TestDirection(x, y, step, 3)) tempList.Add(gridArray[x, y - 1]);
-            if (TestDirection(x, y, step, 4)) tempList.Add(gridArray[x - 1, y]);
-
-            GameObject tempObj = FindClosest(gridArray[endX, endY].transform, tempList);
-            if (tempObj != null)
-            {
-                path.Add(tempObj);
-                x = tempObj.GetComponent<GridStat>().x;
-                y = tempObj.GetComponent<GridStat>().y;
-            }
-        }
-
+        path.Add(startNode);
         path.Reverse();
 
         StartCoroutine(MoveAlongPath());
     }
 
-
-
-
-    bool TestDirection(int x, int y, int step, int direction)
-    {
-        switch (direction)
-        {
-            case 4: // Left
-                if (x - 1 > -1 && gridArray[x - 1, y] != null && gridArray[x - 1, y].GetComponent<GridStat>().visited == step)
-                    return true;
-                else
-                    return false;
-
-            case 3: // Down
-                if (y - 1 > -1 && gridArray[x, y - 1] != null && gridArray[x, y - 1].GetComponent<GridStat>().visited == step)
-                    return true;
-                else
-                    return false;
-
-            case 2: // Right
-                if (x + 1 < columns && gridArray[x + 1, y] != null && gridArray[x + 1, y].GetComponent<GridStat>().visited == step)
-                    return true;
-                else
-                    return false;
-
-            case 1: // Up
-                if (y + 1 < rows && gridArray[x, y + 1] != null && gridArray[x, y + 1].GetComponent<GridStat>().visited == step)
-                    return true;
-                else
-                    return false;
-        }
-        return false;
-    }
-
-    void TestFourDirections(int x, int y, int step)
-    {
-        if (TestDirection(x, y, -1, 1))
-            SetVisited(x, y + 1, step);
-
-        if (TestDirection(x, y, -1, 2))
-            SetVisited(x + 1, y, step);
-
-        if (TestDirection(x, y, -1, 3))
-            SetVisited(x, y - 1, step);
-
-        if (TestDirection(x, y, -1, 4))
-            SetVisited(x - 1, y, step);
-    }
-
-
-    void SetVisited(int x, int y, int step)
-    {
-        if (gridArray[x, y] != null)
-        {
-            gridArray[x, y].GetComponent<GridStat>().visited = step;
-        }
-    }
-    GameObject FindClosest(Transform targetLocation, List<GameObject> list)
-    {
-        float currentDistance = scale * rows * columns;
-        int indexnumber = -1;
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i] != null) // Check for null entries
-            {
-                float distance = Vector3.Distance(targetLocation.position, list[i].transform.position);
-                if (distance < currentDistance)
-                {
-                    currentDistance = distance;
-                    indexnumber = i;
-                }
-            }
-        }
-
-        return indexnumber != -1 ? list[indexnumber] : null; // Return the closest, or null if nothing found
-    }
-
     IEnumerator MoveAlongPath()
     {
+        isMoving = true; // Mark the sphere as moving
+
         foreach (GameObject waypoint in path)
         {
-            if (waypoint == null) continue; // Skip null waypoints
+            if (waypoint == null) continue;
 
-            // Move towards the current waypoint
             while (Vector3.Distance(followerSphere.transform.position, waypoint.transform.position) > 0.1f)
             {
                 followerSphere.transform.position = Vector3.MoveTowards(followerSphere.transform.position, waypoint.transform.position, moveSpeed * Time.deltaTime);
                 yield return null;
             }
-
-            // Small pause at each waypoint
             yield return new WaitForSeconds(0.1f);
         }
 
-        // After reaching the final waypoint, update startX and startY to match the endX and endY
         startX = endX;
         startY = endY;
 
+        isMoving = false; // Mark the sphere as not moving anymore
+
+        // Reset pathfinding trigger
+        pathChanged = true;
+        FindDistance = false;
         Debug.Log($"New Start Position: ({startX}, {startY})");
     }
 
-
     void InitialSetup()
     {
- 
         foreach (GameObject obj in gridArray)
         {
-            if (obj != null) 
+            if (obj != null)
             {
-                obj.GetComponent<GridStat>().visited = -1;
+                GridStat stat = obj.GetComponent<GridStat>();
+                stat.visited = -1;
+                stat.gCost = stat.hCost = 0;
+                stat.parent = null;
             }
         }
 
-        // Mark the starting cell as visited (step 0)
-        if (gridArray[startX, startY] != null)
-        {
-            gridArray[startX, startY].GetComponent<GridStat>().visited = 0;
-        }
+        gridArray[startX, startY].GetComponent<GridStat>().visited = 0;
     }
+
     void DetectGridClick()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Ray from the camera to mouse position
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+
+        if (Physics.Raycast(ray, out hit)) // If the ray hits something
         {
-            GameObject clickedObject = hit.collider.gameObject;
-            if (clickedObject.GetComponent<GridStat>() != null)
+            // Calculate grid coordinates based on the hit position
+            Vector3 hitPos = hit.point;
+            int x = Mathf.RoundToInt((hitPos.x - leftBottomLocation.x) / scale);
+            int y = Mathf.RoundToInt((hitPos.z - leftBottomLocation.z) / scale);
+
+            // Check if the click is within the grid's bounds
+            if (x >= 0 && x < columns && y >= 0 && y < rows)
             {
-                GridStat gridStat = clickedObject.GetComponent<GridStat>();
-                endX = gridStat.x;
-                endY = gridStat.y;
+                // Set the end coordinates and allow movement
+                endX = x;
+                endY = y;
+
+                // Allow A* to run again
                 FindDistance = true;
-            }
-            else
-            {
-                Debug.Log("Clicked object is not part of the grid.");
+                pathChanged = true;
+                Debug.Log($"Clicked grid at: ({endX}, {endY})");
             }
         }
     }
 
+
+    List<GameObject> GetNeighbors(GameObject node)
+    {
+        List<GameObject> neighbors = new List<GameObject>();
+        GridStat stat = node.GetComponent<GridStat>();
+        int x = stat.x;
+        int y = stat.y;
+
+        // Add horizontal and vertical neighbors
+        AddNeighborIfValid(neighbors, x + 1, y);  // Right
+        AddNeighborIfValid(neighbors, x - 1, y);  // Left
+        AddNeighborIfValid(neighbors, x, y + 1);  // Up
+        AddNeighborIfValid(neighbors, x, y - 1);  // Down
+
+        // Add diagonal neighbors
+        AddNeighborIfValid(neighbors, x + 1, y + 1);  // Top-right
+        AddNeighborIfValid(neighbors, x - 1, y + 1);  // Top-left
+        AddNeighborIfValid(neighbors, x + 1, y - 1);  // Bottom-right
+        AddNeighborIfValid(neighbors, x - 1, y - 1);  // Bottom-left
+
+        return neighbors;
     }
+
+    void AddNeighborIfValid(List<GameObject> neighbors, int x, int y)
+    {
+        // Check if within grid bounds
+        if (x >= 0 && x < columns && y >= 0 && y < rows)
+        {
+            GameObject neighbor = gridArray[x, y];
+
+            if (neighbor != null && neighbor.GetComponent<GridStat>().isWalkable) // Check if not destroyed and walkable
+            {
+                neighbors.Add(neighbor);
+            }
+        }
+    }
+
+
+    int GetDistance(GameObject a, GameObject b)
+    {
+        GridStat aStat = a.GetComponent<GridStat>();
+        GridStat bStat = b.GetComponent<GridStat>();
+        int dstX = Mathf.Abs(aStat.x - bStat.x);
+        int dstY = Mathf.Abs(aStat.y - bStat.y);
+        return dstX + dstY;
+    }
+}

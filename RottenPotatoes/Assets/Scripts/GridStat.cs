@@ -1,22 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GridStat : MonoBehaviour
 {
-    public int visited = 1;
-    public int x = 0;
-    public int y = 0;
+    public int x;
+    public int y;
+    public int gCost;
+    public int hCost;
+    public GameObject parent;
+    public bool isWalkable = true; // This flag determines if a grid cell can be walked on
+    public int visited = -1; // For marking in pathfinding
 
-    // Start is called before the first frame update
-    void Start()
+    public int fCost
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        get { return gCost + hCost; }
     }
 }

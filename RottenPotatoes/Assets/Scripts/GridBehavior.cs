@@ -21,8 +21,12 @@ public class GridBehavior : MonoBehaviour
     public int endY = 2;
     public bool FindDistance = false;
     private bool pathChanged = true;
-  private bool isMoving = false; // New flag to check if sphere is moving
+  private bool isMoving = false;
     public List<GameObject> path = new List<GameObject>();
+
+    public GameObject highlightIndicatorPrefab; 
+    private GameObject currentHighlight;        
+
 
     void Awake()
     {
@@ -45,18 +49,19 @@ public class GridBehavior : MonoBehaviour
 
     void Update()
     {
-        if (FindDistance && pathChanged && !isMoving) // Only find path if not moving
+        if (FindDistance && pathChanged && !isMoving) 
         {
             AStarPathfinding();
             pathChanged = false;
             FindDistance = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0) && !isMoving) // Only detect click if not moving
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0) && !isMoving) 
         {
             DetectGridClick();
             pathChanged = true;
         }
+        DetectGridHover();
     }
 
     void GenerateGrid()
@@ -82,6 +87,43 @@ public class GridBehavior : MonoBehaviour
             }
         }
     }
+
+    void DetectGridHover()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 hitPos = hit.point;
+            int x = Mathf.RoundToInt((hitPos.x - leftBottomLocation.x) / scale);
+            int y = Mathf.RoundToInt((hitPos.z - leftBottomLocation.z) / scale);
+
+            if (x >= 0 && x < columns && y >= 0 && y < rows)
+            {
+                Vector3 hoverPosition = gridArray[x, y].transform.position;
+                hoverPosition.y += 0.01f;
+
+                if (currentHighlight == null)
+                {
+                    currentHighlight = Instantiate(highlightIndicatorPrefab, hoverPosition, Quaternion.identity);
+                }
+                else
+                {
+                    currentHighlight.transform.position = hoverPosition;
+                }
+            }
+        }
+        else
+        {
+            if (currentHighlight != null)
+            {
+                Destroy(currentHighlight);
+                currentHighlight = null;
+            }
+        }
+    }
+
 
     void AStarPathfinding()
     {
@@ -123,7 +165,7 @@ public class GridBehavior : MonoBehaviour
                 GridStat neighborStat = neighbor.GetComponent<GridStat>();
                 GridStat currentStat = current.GetComponent<GridStat>();
 
-                if (!neighborStat.isWalkable || closedSet.Contains(neighbor)) continue; // Skip unwalkable or already closed neighbors
+                if (!neighborStat.isWalkable || closedSet.Contains(neighbor)) continue; 
 
                 int newCostToNeighbor = currentStat.gCost + GetDistance(current, neighbor);
                 if (newCostToNeighbor < neighborStat.gCost || !openSet.Contains(neighbor))
@@ -157,7 +199,7 @@ public class GridBehavior : MonoBehaviour
 
     IEnumerator MoveAlongPath()
     {
-        isMoving = true; // Mark the sphere as moving
+        isMoving = true; 
 
         foreach (GameObject waypoint in path)
         {
@@ -174,9 +216,7 @@ public class GridBehavior : MonoBehaviour
         startX = endX;
         startY = endY;
 
-        isMoving = false; // Mark the sphere as not moving anymore
-
-        // Reset pathfinding trigger
+        isMoving = false; 
         pathChanged = true;
         FindDistance = false;
         Debug.Log($"New Start Position: ({startX}, {startY})");
@@ -200,24 +240,20 @@ public class GridBehavior : MonoBehaviour
 
     void DetectGridClick()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Ray from the camera to mouse position
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit)) // If the ray hits something
+        if (Physics.Raycast(ray, out hit)) 
         {
-            // Calculate grid coordinates based on the hit position
             Vector3 hitPos = hit.point;
             int x = Mathf.RoundToInt((hitPos.x - leftBottomLocation.x) / scale);
             int y = Mathf.RoundToInt((hitPos.z - leftBottomLocation.z) / scale);
 
-            // Check if the click is within the grid's bounds
             if (x >= 0 && x < columns && y >= 0 && y < rows)
             {
-                // Set the end coordinates and allow movement
                 endX = x;
                 endY = y;
 
-                // Allow A* to run again
                 FindDistance = true;
                 pathChanged = true;
                 Debug.Log($"Clicked grid at: ({endX}, {endY})");
@@ -233,29 +269,26 @@ public class GridBehavior : MonoBehaviour
         int x = stat.x;
         int y = stat.y;
 
-        // Add horizontal and vertical neighbors
-        AddNeighborIfValid(neighbors, x + 1, y);  // Right
-        AddNeighborIfValid(neighbors, x - 1, y);  // Left
-        AddNeighborIfValid(neighbors, x, y + 1);  // Up
-        AddNeighborIfValid(neighbors, x, y - 1);  // Down
+        AddNeighborIfValid(neighbors, x + 1, y);  
+        AddNeighborIfValid(neighbors, x - 1, y);  
+        AddNeighborIfValid(neighbors, x, y + 1);  
+        AddNeighborIfValid(neighbors, x, y - 1);  
 
-        // Add diagonal neighbors
-        AddNeighborIfValid(neighbors, x + 1, y + 1);  // Top-right
-        AddNeighborIfValid(neighbors, x - 1, y + 1);  // Top-left
-        AddNeighborIfValid(neighbors, x + 1, y - 1);  // Bottom-right
-        AddNeighborIfValid(neighbors, x - 1, y - 1);  // Bottom-left
+        AddNeighborIfValid(neighbors, x + 1, y + 1);  
+        AddNeighborIfValid(neighbors, x - 1, y + 1);  
+        AddNeighborIfValid(neighbors, x + 1, y - 1);  
+        AddNeighborIfValid(neighbors, x - 1, y - 1);  
 
         return neighbors;
     }
 
     void AddNeighborIfValid(List<GameObject> neighbors, int x, int y)
     {
-        // Check if within grid bounds
         if (x >= 0 && x < columns && y >= 0 && y < rows)
         {
             GameObject neighbor = gridArray[x, y];
 
-            if (neighbor != null && neighbor.GetComponent<GridStat>().isWalkable) // Check if not destroyed and walkable
+            if (neighbor != null && neighbor.GetComponent<GridStat>().isWalkable) 
             {
                 neighbors.Add(neighbor);
             }

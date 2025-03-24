@@ -56,7 +56,7 @@ public class CAM : MonoBehaviour
         Vector3 currentMousePosition = Input.mousePosition;
         Vector3 difference = dragOrigin - currentMousePosition;
 
-        //Rotating the input to fix fucked-up panning --- 3/23/25 Ben Heifetz
+        //Rotating the input to fix diagonal panning --- 3/23/25 Ben Heifetz
         Vector3 rotationFixVector = new Vector3(0, 45.0f, 0);
         Quaternion rotationFix = Quaternion.Euler(rotationFixVector);
 

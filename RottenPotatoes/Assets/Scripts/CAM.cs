@@ -56,9 +56,14 @@ public class CAM : MonoBehaviour
         Vector3 currentMousePosition = Input.mousePosition;
         Vector3 difference = dragOrigin - currentMousePosition;
 
+        //Rotating the input to fix fucked-up panning --- 3/23/25 Ben Heifetz
+        Vector3 rotationFixVector = new Vector3(0, 45.0f, 0);
+        Quaternion rotationFix = Quaternion.Euler(rotationFixVector);
+
+
         // Move the camera based on the difference, scaled by panSpeed and deltaTime
         Vector3 move = new Vector3(difference.x * panSpeed * Time.deltaTime, 0, difference.y * panSpeed * Time.deltaTime);
-        transform.Translate(move, Space.World);
+        transform.Translate(rotationFix * move, Space.World);
 
         // Update dragOrigin to the current mouse position for the next frame
         dragOrigin = currentMousePosition;

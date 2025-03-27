@@ -3760,6 +3760,14 @@ MonoBehaviour:
   FindDistance: 0
   path: []
   highlightIndicatorPrefab: {fileID: 4898400303216568638, guid: f75e4f66224670640b05e7c41d501697, type: 3}
+  onGridMaterial: {fileID: 2100000, guid: 97f4a7fbd117036418724a14f5cc9791, type: 2}
+  offGridMaterial: {fileID: 2100000, guid: eed93ba6c835b804ca14d88d955729b9, type: 2}
+  key1Material: {fileID: 2100000, guid: a62aeaf764ed0634ca44500dcef95db3, type: 2}
+  key2Material: {fileID: 2100000, guid: f1cf098d890ee554ab0febbb755ce6fe, type: 2}
+  key3Material: {fileID: 2100000, guid: d8964d75ee6ab5649b6636021f55319e, type: 2}
+  key1Prefab: {fileID: 650536265790129021, guid: 8e04ef5979754384c9741e432a003a44, type: 3}
+  key2Prefab: {fileID: 1352846728235914461, guid: 0885f1b6fea90d84d9b4a73e50b33def, type: 3}
+  key3Prefab: {fileID: 8108112932350540392, guid: 8753239b228c1ce488e6c64fb7f24048, type: 3}
 --- !u!4 &1616019199
 Transform:
   m_ObjectHideFlags: 0

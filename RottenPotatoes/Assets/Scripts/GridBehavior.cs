@@ -25,7 +25,18 @@ public class GridBehavior : MonoBehaviour
     public List<GameObject> path = new List<GameObject>();
 
     public GameObject highlightIndicatorPrefab; 
-    private GameObject currentHighlight;        
+    private GameObject currentHighlight;
+    public Material onGridMaterial;
+    public Material offGridMaterial;
+    public Material key1Material;  
+    public Material key2Material;  
+    public Material key3Material;
+    public GameObject key1Prefab;  
+    public GameObject key2Prefab;  
+    public GameObject key3Prefab;  
+    private bool isKey1Toggled = false;  
+    private bool isKey2Toggled = false;  
+    private bool isKey3Toggled = false;
 
 
     void Awake()
@@ -93,6 +104,26 @@ public class GridBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+   
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            isKey1Toggled = !isKey1Toggled;  
+            isKey2Toggled = false;  
+            isKey3Toggled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            isKey2Toggled = !isKey2Toggled;  
+            isKey1Toggled = false; 
+            isKey3Toggled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            isKey3Toggled = !isKey3Toggled; 
+            isKey1Toggled = false;  
+            isKey2Toggled = false;
+        }
+
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 hitPos = hit.point;
@@ -112,18 +143,61 @@ public class GridBehavior : MonoBehaviour
                 {
                     currentHighlight.transform.position = hoverPosition;
                 }
+
+        
+                if (isKey1Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key1Material;  
+                }
+                else if (isKey2Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key2Material;  
+                }
+                else if (isKey3Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key3Material;  
+                }
+                else
+                {
+                    currentHighlight.GetComponent<Renderer>().material = onGridMaterial;  
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (isKey1Toggled)
+                    {
+                        Instantiate(key1Prefab, hoverPosition, Quaternion.identity);  
+                    }
+                    else if (isKey2Toggled)
+                    {
+                        Instantiate(key2Prefab, hoverPosition, Quaternion.identity);  
+                    }
+                    else if (isKey3Toggled)
+                    {
+                        Instantiate(key3Prefab, hoverPosition, Quaternion.identity);  
+                    }
+
+                    isKey1Toggled = false;
+                    isKey2Toggled = false;
+                    isKey3Toggled = false;
+                }
+            }
+            else
+            {
+                if (currentHighlight != null)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = offGridMaterial;
+                }
             }
         }
         else
         {
             if (currentHighlight != null)
             {
-                Destroy(currentHighlight);
-                currentHighlight = null;
+                currentHighlight.GetComponent<Renderer>().material = offGridMaterial;
             }
         }
     }
-
 
     void AStarPathfinding()
     {

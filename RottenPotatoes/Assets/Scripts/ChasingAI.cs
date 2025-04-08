@@ -11,6 +11,7 @@ public class ChasingAI : MonoBehaviour
     public float attackCooldown = 1.5f;
 
     private Transform player;
+    private Transform currentTarget;
     private NavMeshAgent agent;
     private float lastAttackTime = 0f;
 
@@ -22,44 +23,68 @@ public class ChasingAI : MonoBehaviour
 
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        // Check for nearby plant objects
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
+        Transform closestPlant = null;
+        float closestPlantDistance = Mathf.Infinity;
 
-        if (distanceToPlayer <= detectionRadius)
+        foreach (GameObject plant in plants)
         {
-            // Chase player
-            agent.SetDestination(player.position);
+            float distance = Vector3.Distance(transform.position, plant.transform.position);
+            if (distance < detectionRadius && distance < closestPlantDistance)
+            {
+                closestPlant = plant.transform;
+                closestPlantDistance = distance;
+            }
+        }
 
-            // Face player
-            Vector3 direction = (player.position - transform.position).normalized;
+        // Choose target: plant if one is nearby, otherwise player
+        currentTarget = (closestPlant != null) ? closestPlant : player;
+
+        float distanceToTarget = Vector3.Distance(transform.position, currentTarget.position);
+
+        if (distanceToTarget <= detectionRadius)
+        {
+            // Chase current target
+            agent.SetDestination(currentTarget.position);
+
+            // Face target
+            Vector3 direction = (currentTarget.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
-            // Check if player is in front and in attack range
-            if (distanceToPlayer <= attackRange && IsPlayerInFront())
+            // Attack if in range and in front
+            if (distanceToTarget <= attackRange && IsTargetInFront())
             {
                 if (Time.time >= lastAttackTime + attackCooldown)
                 {
-                    AttackPlayer();
+                    AttackTarget();
                     lastAttackTime = Time.time;
                 }
             }
         }
         else
         {
-            // Stop moving when player is out of detection
             agent.ResetPath();
         }
     }
 
-    bool IsPlayerInFront()
+    bool IsTargetInFront()
     {
-        Vector3 toPlayer = (player.position - transform.position).normalized;
-        float angle = Vector3.Angle(transform.forward, toPlayer);
+        Vector3 toTarget = (currentTarget.position - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, toTarget);
         return angle < fieldOfViewAngle / 2f;
     }
 
-    void AttackPlayer()
+    void AttackTarget()
     {
-        Debug.Log("player attacked");
+        if (currentTarget.CompareTag("Player"))
+        {
+            Debug.Log("player attacked");
+        }
+        else if (currentTarget.CompareTag("Plant"))
+        {
+            Debug.Log("plant attacked");
+        }
     }
 }

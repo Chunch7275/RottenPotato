@@ -21,7 +21,8 @@ public class GridBehavior : MonoBehaviour
     public int endY = 2;
     public bool FindDistance = false;
     private bool pathChanged = true;
-  private bool isMoving = false;
+    public GameObject trailPrefab;
+    private bool isMoving = false;
     public List<GameObject> path = new List<GameObject>();
 
     public GameObject highlightIndicatorPrefab; 
@@ -31,13 +32,26 @@ public class GridBehavior : MonoBehaviour
     public Material key1Material;  
     public Material key2Material;  
     public Material key3Material;
+    public Material key4Material;
+    public Material key5Material;
+    public Material key6Material;
+    public Material key7Material;
+    public Material key8Material;
+    public Material key9Material;
     public GameObject key1Prefab;  
     public GameObject key2Prefab;  
-    public GameObject key3Prefab;  
-    private bool isKey1Toggled = false;  
-    private bool isKey2Toggled = false;  
+    public GameObject key3Prefab;
+    public GameObject key4Prefab;
+    public GameObject key5Prefab;
+    public GameObject key6Prefab;
+    public GameObject key7Prefab;
+    private bool isKey1Toggled = false;
+    private bool isKey2Toggled = false;
     private bool isKey3Toggled = false;
-
+    private bool isKey4Toggled = false;
+    private bool isKey5Toggled = false;
+    private bool isKey6Toggled = false;
+    private bool isKey7Toggled = false;
 
     void Awake()
     {
@@ -110,19 +124,76 @@ public class GridBehavior : MonoBehaviour
             isKey1Toggled = !isKey1Toggled;  
             isKey2Toggled = false;  
             isKey3Toggled = false;
+            isKey4Toggled = false;
+            isKey5Toggled = false;
+            isKey6Toggled = false;
+            isKey7Toggled = false;
+           
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             isKey2Toggled = !isKey2Toggled;  
             isKey1Toggled = false; 
             isKey3Toggled = false;
+            isKey4Toggled = false;
+            isKey5Toggled = false;
+            isKey6Toggled = false;
+            isKey7Toggled = false;
+       
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             isKey3Toggled = !isKey3Toggled; 
             isKey1Toggled = false;  
             isKey2Toggled = false;
+            isKey4Toggled = false;
+            isKey5Toggled = false;
+            isKey6Toggled = false;
+            isKey7Toggled = false;
         }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            isKey4Toggled = !isKey4Toggled;
+            isKey1Toggled = false;
+            isKey2Toggled = false;
+            isKey3Toggled = false;
+            isKey5Toggled = false;
+            isKey6Toggled = false;
+            isKey7Toggled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            isKey5Toggled = !isKey5Toggled;
+            isKey1Toggled = false;
+            isKey2Toggled = false;
+            isKey3Toggled = false;
+            isKey4Toggled = false;
+            isKey6Toggled = false;
+            isKey7Toggled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            isKey6Toggled = !isKey6Toggled;
+            isKey1Toggled = false;
+            isKey2Toggled = false;
+            isKey3Toggled = false;
+            isKey4Toggled = false;
+            isKey5Toggled = false;
+            isKey7Toggled = false;
+           
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            isKey7Toggled = !isKey7Toggled;
+            isKey1Toggled = false;
+            isKey2Toggled = false;
+            isKey3Toggled = false;
+            isKey4Toggled = false;
+            isKey5Toggled = false;
+            isKey6Toggled = false;
+           
+        }
+       
 
         if (Physics.Raycast(ray, out hit))
         {
@@ -157,6 +228,23 @@ public class GridBehavior : MonoBehaviour
                 {
                     currentHighlight.GetComponent<Renderer>().material = key3Material;  
                 }
+                else if (isKey4Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key4Material;
+                }
+                else if (isKey5Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key5Material;
+                }
+                else if (isKey6Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key6Material;
+                }
+                else if (isKey7Toggled)
+                {
+                    currentHighlight.GetComponent<Renderer>().material = key7Material;
+                }
+                
                 else
                 {
                     currentHighlight.GetComponent<Renderer>().material = onGridMaterial;  
@@ -176,10 +264,33 @@ public class GridBehavior : MonoBehaviour
                     {
                         Instantiate(key3Prefab, hoverPosition, Quaternion.identity);  
                     }
+                    else if (isKey4Toggled)
+                    {
+                        Instantiate(key4Prefab, hoverPosition, Quaternion.identity);
+                    }
+                    else if (isKey5Toggled)
+                    {
+                        Instantiate(key5Prefab, hoverPosition, Quaternion.identity);
+                    }
+                    else if (isKey6Toggled)
+                    {
+                        Instantiate(key6Prefab, hoverPosition, Quaternion.identity);
+                    }
+                    else if (isKey7Toggled)
+                    {
+                        Instantiate(key7Prefab, hoverPosition, Quaternion.identity);
+                    }
+                    
 
                     isKey1Toggled = false;
                     isKey2Toggled = false;
                     isKey3Toggled = false;
+                    isKey4Toggled = false;
+                    isKey5Toggled = false;
+                    isKey6Toggled = false;
+                    isKey6Toggled = false;
+                    isKey7Toggled = false;
+                    
                 }
             }
             else
@@ -273,24 +384,35 @@ public class GridBehavior : MonoBehaviour
 
     IEnumerator MoveAlongPath()
     {
-        isMoving = true; 
+        isMoving = true;
+
+        GameObject previousNode = null;
 
         foreach (GameObject waypoint in path)
         {
             if (waypoint == null) continue;
 
-            while (Vector3.Distance(followerSphere.transform.position, waypoint.transform.position) > 0.1f)
+            Vector3 targetPosition = waypoint.transform.position;
+
+            while (Vector3.Distance(followerSphere.transform.position, targetPosition) > 0.1f)
             {
-                followerSphere.transform.position = Vector3.MoveTowards(followerSphere.transform.position, waypoint.transform.position, moveSpeed * Time.deltaTime);
+                followerSphere.transform.position = Vector3.MoveTowards(followerSphere.transform.position, targetPosition, moveSpeed * Time.deltaTime);
                 yield return null;
             }
+
+            if (previousNode != null && trailPrefab != null)
+            {
+                Instantiate(trailPrefab, previousNode.transform.position, Quaternion.identity);
+            }
+
+            previousNode = waypoint;
             yield return new WaitForSeconds(0.1f);
         }
 
         startX = endX;
         startY = endY;
 
-        isMoving = false; 
+        isMoving = false;
         pathChanged = true;
         FindDistance = false;
         Debug.Log($"New Start Position: ({startX}, {startY})");

@@ -1,10 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using UnityEngine;
 
 public class GridBehavior : MonoBehaviour
 {
+    public int resourceAmount = 100;  // Starting resources
+    public int plant1Cost = 10;
+    public int plant2Cost = 10;
+    public int plant3Cost = 10;
+    public int plant4Cost = 10;
+    public int plant5Cost = 10;
+    public int plant6Cost = 10;
+    public int plant7Cost = 10;
     public GameObject followerSpherePrefab;
     private GameObject followerSphere;
     public float moveSpeed = 2.0f;
@@ -55,6 +64,7 @@ public class GridBehavior : MonoBehaviour
 
     void Awake()
     {
+      
         gridArray = new GameObject[columns, rows];
 
         if (gridPrefab)
@@ -115,6 +125,7 @@ public class GridBehavior : MonoBehaviour
 
     void DetectGridHover()
     {
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -254,31 +265,94 @@ public class GridBehavior : MonoBehaviour
                 {
                     if (isKey1Toggled)
                     {
-                        Instantiate(key1Prefab, hoverPosition, Quaternion.identity);  
+                        if (resourceAmount >= plant1Cost)
+                        {
+                            Instantiate(key1Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant1Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     else if (isKey2Toggled)
                     {
-                        Instantiate(key2Prefab, hoverPosition, Quaternion.identity);  
+                        if (resourceAmount >= plant2Cost)
+                        {
+                            Instantiate(key2Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant2Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     else if (isKey3Toggled)
                     {
-                        Instantiate(key3Prefab, hoverPosition, Quaternion.identity);  
+                        if (resourceAmount >= plant3Cost)
+                        {
+                            Instantiate(key3Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant3Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     else if (isKey4Toggled)
                     {
-                        Instantiate(key4Prefab, hoverPosition, Quaternion.identity);
+                        if (resourceAmount >= plant4Cost)
+                        {
+                            Instantiate(key4Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant4Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     else if (isKey5Toggled)
                     {
-                        Instantiate(key5Prefab, hoverPosition, Quaternion.identity);
+                        if (resourceAmount >= plant5Cost)
+                        {
+                            Instantiate(key5Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant5Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     else if (isKey6Toggled)
                     {
-                        Instantiate(key6Prefab, hoverPosition, Quaternion.identity);
+                        if (resourceAmount >= plant6Cost)
+                        {
+                            Instantiate(key6Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant6Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     else if (isKey7Toggled)
                     {
-                        Instantiate(key7Prefab, hoverPosition, Quaternion.identity);
+                        if (resourceAmount >= plant7Cost)
+                        {
+                            Instantiate(key7Prefab, hoverPosition, Quaternion.identity);
+                            resourceAmount -= plant7Cost;
+                            Debug.Log("Placed plant. Resources left: " + resourceAmount);
+                        }
+                        else
+                        {
+                            Debug.Log("Not enough resources to place a plant!");
+                        }
                     }
                     
 

@@ -2666,63 +2666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5014c83f48e43b5d809b5421bc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1023155172
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 33.51
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 34.53
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
-      propertyPath: m_Name
-      value: ExplodingBulbAnimTest
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 95d0e614a31f23440a8b456afe51088e, type: 3}
 --- !u!1001 &1084820336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5352,5 +5295,4 @@ SceneRoots:
   - {fileID: 1115856464}
   - {fileID: 1339205683}
   - {fileID: 1580925424392545677}
-  - {fileID: 1023155172}
   - {fileID: 581742942}

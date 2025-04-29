@@ -12,8 +12,11 @@ GameObject:
   - component: {fileID: 3651097456653591437}
   - component: {fileID: 5204095158287293308}
   - component: {fileID: 4586504223661404728}
+  - component: {fileID: 8581011877246032233}
+  - component: {fileID: -4831434317858823958}
+  - component: {fileID: 3305369060493421389}
   m_Layer: 0
-  m_Name: Cube7
+  m_Name: Ensnare_Temp
   m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 40285d6dc8f13b143969ed4e14f53beb, type: 2}
+  - {fileID: 2100000, guid: 217aa3ba91e83d649861e5dd5826ab3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,3 +108,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8581011877246032233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108112932350540392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc484128699322429e28b37bffd19d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRange: 1
+  damageAmount: 1
+  damageCooldown: 2.5
+--- !u!114 &-4831434317858823958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108112932350540392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe3348a3f9ee7743895cdd6e561ba26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  explodeOnDeath: 0
+  explosionPrefab: {fileID: 0}
+--- !u!114 &3305369060493421389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108112932350540392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a1019577d1bdb45b047cee9a473121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 2, z: 0}

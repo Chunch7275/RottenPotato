@@ -5,19 +5,20 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 5;
-    private int currentHealth;
+    public int CurrentHealth { get; private set; } // <- Public Getter
+
     public bool explodeOnDeath = false;
     public GameObject explosionPrefab; // Optional, set an explosion prefab in Inspector
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        CurrentHealth -= damage;
+        if (CurrentHealth <= 0)
         {
             Die();
         }

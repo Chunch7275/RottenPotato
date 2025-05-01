@@ -1812,7 +1812,7 @@ GameObject:
   - component: {fileID: 755624383}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3241,6 +3241,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a633c2d972c927d49855832d9ffd0d74, type: 3}
       propertyPath: m_Name
       value: Trunk_Fallen
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a633c2d972c927d49855832d9ffd0d74, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5107,9 +5111,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 80ffb793ec35cce45bd560355d256ef4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 80ffb793ec35cce45bd560355d256ef4, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 80ffb793ec35cce45bd560355d256ef4, type: 3}
       propertyPath: m_Name
       value: Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 80ffb793ec35cce45bd560355d256ef4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5139,7 +5155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d624e4728977def4f92c9467c7aa9930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverMaterial: {fileID: 0}
+  hoverMaterial: {fileID: 2100000, guid: b6f43153bd4552941b605fbe08e16e5e, type: 2}
 --- !u!64 &1738462576
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -1,19 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ResourceZone : MonoBehaviour
 {
     public GridBehavior gridBehavior;
-
     public int incrementAmount = 5;
-
     public float interval = 1f;
 
-    private bool playerInside = false;
     private float timer = 0f;
+    private bool isIncrementing = false;
+
+    // Track all valid objects in the zone
+    private HashSet<Collider> validObjectsInZone = new HashSet<Collider>();
 
     void Update()
     {
-        if (playerInside && gridBehavior != null)
+        if (isIncrementing && gridBehavior != null)
         {
             timer += Time.deltaTime;
             if (timer >= interval)
@@ -27,24 +29,29 @@ public class ResourceZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // debug to confirm trigger working
-        Debug.Log("[ResourceZone] Trigger entered by: " + other.name);
-
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Plant"))
         {
-            playerInside = true;
-            timer = 0f;
-            Debug.Log("[ResourceZone] Player entered resource zone.");
+            if (validObjectsInZone.Add(other)) // Add returns true if the item was not already in the set
+            {
+                if (!isIncrementing)
+                {
+                    isIncrementing = true;
+                    timer = 0f;
+                    Debug.Log("[ResourceZone] Incrementing started.");
+                }
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (validObjectsInZone.Remove(other)) // Remove and check if set is now empty
         {
-            playerInside = false;
-            timer = 0f;
-            Debug.Log("[ResourceZone] Player exited resource zone.");
+            if (validObjectsInZone.Count == 0)
+            {
+                isIncrementing = false;
+                Debug.Log("[ResourceZone] Incrementing stopped.");
+            }
         }
     }
 }

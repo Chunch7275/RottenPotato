@@ -48,6 +48,12 @@ public class Bot : MonoBehaviour
         Seek(target.transform.position + target.transform.forward * lookAhead);
     }
 
+    public void MoveToPosition(Vector3 position)
+    {
+        agent.SetDestination(position);
+    }
+
+
     public void Wander()
     {
         float wanderRadius = 10f;

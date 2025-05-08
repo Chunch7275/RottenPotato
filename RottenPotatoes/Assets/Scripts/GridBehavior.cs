@@ -477,6 +477,8 @@ public class GridBehavior : MonoBehaviour
             if (previousNode != null && trailPrefab != null)
             {
                 Instantiate(trailPrefab, previousNode.transform.position, Quaternion.identity);
+                resourceAmount -= 1;
+
             }
 
             previousNode = waypoint;

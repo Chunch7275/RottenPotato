@@ -7,11 +7,11 @@ public class BotAIController_Shooter : MonoBehaviour
     private Bot bot;
 
     public float detectionRadius = 15f;
-    public float shootingRange = 10f;
-    public int attackDamage = 1;
+    public float shootingDistance = 1f;
     public float attackCooldown = 2f;
+    public int attackDamage = 1;
 
-    public Transform shootPoint; // Optional: for effects like muzzle flash
+    public Transform shootPoint;
 
     private float lastAttackTime = 0f;
     private GameObject currentTarget;
@@ -30,16 +30,17 @@ public class BotAIController_Shooter : MonoBehaviour
             currentTarget = plant;
             float distanceToTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
 
-            if (distanceToTarget <= shootingRange)
+            if (distanceToTarget > shootingDistance + 0.2f)
             {
-                bot.SetTarget(null); // stop pathing
-                FaceTarget(currentTarget);
-                SimulateShoot(currentTarget);
+                Vector3 direction = (currentTarget.transform.position - transform.position).normalized;
+                Vector3 stopPosition = currentTarget.transform.position - direction * shootingDistance;
+                bot.MoveToPosition(stopPosition);
             }
             else
             {
-                bot.SetTarget(currentTarget);
-                bot.MoveToTarget();
+                bot.SetTarget(null); // freeze movement
+                FaceTarget(currentTarget);
+                SimulateShoot(currentTarget);
             }
         }
         else
@@ -53,7 +54,6 @@ public class BotAIController_Shooter : MonoBehaviour
     {
         if (Time.time >= lastAttackTime + attackCooldown)
         {
-            // Optional: trigger visual FX at shootPoint
             Debug.Log($"[BotAIController_Shooter] Shooting at {target.name}");
 
             HealthSystem health = target.GetComponent<HealthSystem>();
@@ -69,7 +69,7 @@ public class BotAIController_Shooter : MonoBehaviour
     private void FaceTarget(GameObject target)
     {
         Vector3 direction = (target.transform.position - transform.position).normalized;
-        direction.y = 0f; // prevent vertical tilting
+        direction.y = 0f;
         if (direction != Vector3.zero)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);

@@ -458,6 +458,12 @@ public class GridBehavior : MonoBehaviour
 
     IEnumerator MoveAlongPath()
     {
+        if (resourceAmount <= 0)
+        {
+            Debug.Log("Not enough resources to start movement.");
+            yield break;
+        }
+
         isMoving = true;
 
         GameObject previousNode = null;
@@ -465,6 +471,13 @@ public class GridBehavior : MonoBehaviour
         foreach (GameObject waypoint in path)
         {
             if (waypoint == null) continue;
+
+            // Stop BEFORE moving if out of resources
+            if (previousNode != null && resourceAmount <= 0)
+            {
+                Debug.Log("Movement stopped due to insufficient resources.");
+                break;
+            }
 
             Vector3 targetPosition = waypoint.transform.position;
 
@@ -478,21 +491,25 @@ public class GridBehavior : MonoBehaviour
             {
                 Instantiate(trailPrefab, previousNode.transform.position, Quaternion.identity);
                 resourceAmount -= 1;
-
             }
 
             previousNode = waypoint;
             yield return new WaitForSeconds(0.1f);
         }
 
-        startX = endX;
-        startY = endY;
+        if (previousNode != null)
+        {
+            GridStat stoppedStat = previousNode.GetComponent<GridStat>();
+            startX = stoppedStat.x;
+            startY = stoppedStat.y;
+        }
 
         isMoving = false;
         pathChanged = true;
         FindDistance = false;
         Debug.Log($"New Start Position: ({startX}, {startY})");
     }
+
 
     void InitialSetup()
     {

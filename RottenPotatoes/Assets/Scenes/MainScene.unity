@@ -476,15 +476,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.26165324
+      value: 0.35877892
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.26613986
+      value: 0.364931
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.26165324
+      value: 0.35877892
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -530,10 +530,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potato_Temp
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
+      propertyPath: m_TagString
+      value: Plant
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386135945}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386135946}
+    - targetCorrespondingSourceObject: {fileID: -7063251126808050606, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1204623608}
   m_SourcePrefab: {fileID: 100100000, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
 --- !u!1 &353883805
 GameObject:
@@ -627,6 +640,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &386135943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
+  m_PrefabInstance: {fileID: 297411585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &386135945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386135943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe3348a3f9ee7743895cdd6e561ba26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  explodeOnDeath: 0
+  explosionPrefab: {fileID: 0}
+  regenerates: 1
+  regenAmount: 1
+  regenInterval: 5
+--- !u!114 &386135946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386135943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a1019577d1bdb45b047cee9a473121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 2, z: 0}
 --- !u!1001 &388865510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3006,6 +3055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf59ea7d5a0db4d43b19ea7098fc66e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackedObject: {fileID: 0}
 --- !u!4 &1123938090
 Transform:
   m_ObjectHideFlags: 0
@@ -3021,6 +3071,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1204623604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7063251126808050606, guid: a3acb4fcf0d1aca4b877492db7bf8e22, type: 3}
+  m_PrefabInstance: {fileID: 297411585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1204623608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204623604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe3348a3f9ee7743895cdd6e561ba26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  explodeOnDeath: 0
+  explosionPrefab: {fileID: 0}
+  regenerates: 0
+  regenAmount: 1
+  regenInterval: 1
 --- !u!1001 &1210830684
 PrefabInstance:
   m_ObjectHideFlags: 0

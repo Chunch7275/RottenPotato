@@ -4051,9 +4051,9 @@ MonoBehaviour:
   key2Prefab: {fileID: 6102726699475022464, guid: f148504fc948b9a4da7d61c2cfa4de85, type: 3}
   key3Prefab: {fileID: 108951455538758098, guid: 372700842bca22948a1dc28ba163fbba, type: 3}
   key4Prefab: {fileID: 7693318937513690061, guid: 8707f110f8f7851478af05d4635d1ce6, type: 3}
-  key5Prefab: {fileID: 8108112932350540392, guid: d6b8b06a9a0aa9a49902a0292b843d47, type: 3}
-  key6Prefab: {fileID: 8108112932350540392, guid: 0abfdaa70606ab9439208c806edc3127, type: 3}
-  key7Prefab: {fileID: 8108112932350540392, guid: fa4f4b7d8e4d14e4f86fce9fd66a6994, type: 3}
+  key5Prefab: {fileID: 6049026152542279537, guid: 4208d9d1db2e1a74daaf7dc5e9475953, type: 3}
+  key6Prefab: {fileID: 7993815315797162262, guid: b9d2fdfa6764a3148b572f89e6d03b29, type: 3}
+  key7Prefab: {fileID: 2632793083626571188, guid: d4ec7b225bbbc9c48928c788fe9f9a12, type: 3}
 --- !u!4 &1616019199
 Transform:
   m_ObjectHideFlags: 0
@@ -4387,6 +4387,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4823306760479072201, guid: a7ca912b7521bc34fb696e7dadbd8c5a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5248616
+      objectReference: {fileID: 0}
+    - target: {fileID: 4823306760479072201, guid: a7ca912b7521bc34fb696e7dadbd8c5a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5248616
+      objectReference: {fileID: 0}
+    - target: {fileID: 4823306760479072201, guid: a7ca912b7521bc34fb696e7dadbd8c5a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5248616
+      objectReference: {fileID: 0}
     - target: {fileID: 4849928492073134998, guid: a7ca912b7521bc34fb696e7dadbd8c5a, type: 3}
       propertyPath: m_Name
       value: Plant Light Bulb

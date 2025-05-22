@@ -69,9 +69,6 @@ PrefabInstance:
       addedObject: {fileID: 4380084607616903487}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60af91411275d2b4f94e8a5112524654, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8807056094814559530}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60af91411275d2b4f94e8a5112524654, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5945515919447270511}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60af91411275d2b4f94e8a5112524654, type: 3}
       insertIndex: -1
@@ -82,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60af91411275d2b4f94e8a5112524654, type: 3}
       insertIndex: -1
       addedObject: {fileID: -868662534475350995}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60af91411275d2b4f94e8a5112524654, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6726059700976046598}
   m_SourcePrefab: {fileID: 100100000, guid: 60af91411275d2b4f94e8a5112524654, type: 3}
 --- !u!1 &6102726699475022464 stripped
 GameObject:
@@ -111,20 +111,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &8807056094814559530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6102726699475022464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72ea3577cb090e4d8346c2b7a537d4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionDelay: 3
-  explosionEffectPrefab: {fileID: 0}
 --- !u!114 &5945515919447270511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +126,11 @@ MonoBehaviour:
   maxHealth: 5
   explodeOnDeath: 0
   explosionPrefab: {fileID: 0}
+  regenerates: 0
+  regenAmount: 1
+  regenInterval: 1
+  loadSceneOnDeath: 0
+  sceneToLoadOnDeath: 
 --- !u!95 &5552536097108681439
 Animator:
   serializedVersion: 5
@@ -201,3 +192,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6726059700976046598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102726699475022464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9889e0354f0d54c47a3012356813e7e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRange: 4
+  damageAmount: 25
+  attackDelay: 2

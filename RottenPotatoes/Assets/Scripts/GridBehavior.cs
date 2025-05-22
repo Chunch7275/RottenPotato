@@ -34,12 +34,12 @@ public class GridBehavior : MonoBehaviour
     private bool isMoving = false;
     public List<GameObject> path = new List<GameObject>();
 
-    public GameObject highlightIndicatorPrefab; 
+    public GameObject highlightIndicatorPrefab;
     private GameObject currentHighlight;
     public Material onGridMaterial;
     public Material offGridMaterial;
-    public Material key1Material;  
-    public Material key2Material;  
+    public Material key1Material;
+    public Material key2Material;
     public Material key3Material;
     public Material key4Material;
     public Material key5Material;
@@ -47,8 +47,8 @@ public class GridBehavior : MonoBehaviour
     public Material key7Material;
     public Material key8Material;
     public Material key9Material;
-    public GameObject key1Prefab;  
-    public GameObject key2Prefab;  
+    public GameObject key1Prefab;
+    public GameObject key2Prefab;
     public GameObject key3Prefab;
     public GameObject key4Prefab;
     public GameObject key5Prefab;
@@ -64,7 +64,7 @@ public class GridBehavior : MonoBehaviour
 
     void Awake()
     {
-      
+
         gridArray = new GameObject[columns, rows];
 
         if (gridPrefab)
@@ -84,14 +84,14 @@ public class GridBehavior : MonoBehaviour
 
     void Update()
     {
-        if (FindDistance && pathChanged && !isMoving) 
+        if (FindDistance && pathChanged && !isMoving)
         {
             AStarPathfinding();
             pathChanged = false;
             FindDistance = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0) && !isMoving) 
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0) && !isMoving)
         {
             DetectGridClick();
             pathChanged = true;
@@ -129,33 +129,33 @@ public class GridBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-   
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            isKey1Toggled = !isKey1Toggled;  
-            isKey2Toggled = false;  
+            isKey1Toggled = !isKey1Toggled;
+            isKey2Toggled = false;
             isKey3Toggled = false;
             isKey4Toggled = false;
             isKey5Toggled = false;
             isKey6Toggled = false;
             isKey7Toggled = false;
-           
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            isKey2Toggled = !isKey2Toggled;  
-            isKey1Toggled = false; 
+            isKey2Toggled = !isKey2Toggled;
+            isKey1Toggled = false;
             isKey3Toggled = false;
             isKey4Toggled = false;
             isKey5Toggled = false;
             isKey6Toggled = false;
             isKey7Toggled = false;
-       
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            isKey3Toggled = !isKey3Toggled; 
-            isKey1Toggled = false;  
+            isKey3Toggled = !isKey3Toggled;
+            isKey1Toggled = false;
             isKey2Toggled = false;
             isKey4Toggled = false;
             isKey5Toggled = false;
@@ -191,7 +191,7 @@ public class GridBehavior : MonoBehaviour
             isKey4Toggled = false;
             isKey5Toggled = false;
             isKey7Toggled = false;
-           
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
@@ -202,9 +202,9 @@ public class GridBehavior : MonoBehaviour
             isKey4Toggled = false;
             isKey5Toggled = false;
             isKey6Toggled = false;
-           
+
         }
-       
+
 
         if (Physics.Raycast(ray, out hit))
         {
@@ -226,18 +226,18 @@ public class GridBehavior : MonoBehaviour
                     currentHighlight.transform.position = hoverPosition;
                 }
 
-        
+
                 if (isKey1Toggled)
                 {
-                    currentHighlight.GetComponent<Renderer>().material = key1Material;  
+                    currentHighlight.GetComponent<Renderer>().material = key1Material;
                 }
                 else if (isKey2Toggled)
                 {
-                    currentHighlight.GetComponent<Renderer>().material = key2Material;  
+                    currentHighlight.GetComponent<Renderer>().material = key2Material;
                 }
                 else if (isKey3Toggled)
                 {
-                    currentHighlight.GetComponent<Renderer>().material = key3Material;  
+                    currentHighlight.GetComponent<Renderer>().material = key3Material;
                 }
                 else if (isKey4Toggled)
                 {
@@ -255,10 +255,10 @@ public class GridBehavior : MonoBehaviour
                 {
                     currentHighlight.GetComponent<Renderer>().material = key7Material;
                 }
-                
+
                 else
                 {
-                    currentHighlight.GetComponent<Renderer>().material = onGridMaterial;  
+                    currentHighlight.GetComponent<Renderer>().material = onGridMaterial;
                 }
 
                 if (Input.GetMouseButtonDown(0))
@@ -354,7 +354,7 @@ public class GridBehavior : MonoBehaviour
                             Debug.Log("Not enough resources to place a plant!");
                         }
                     }
-                    
+
 
                     isKey1Toggled = false;
                     isKey2Toggled = false;
@@ -364,7 +364,7 @@ public class GridBehavior : MonoBehaviour
                     isKey6Toggled = false;
                     isKey6Toggled = false;
                     isKey7Toggled = false;
-                    
+
                 }
             }
             else
@@ -424,7 +424,7 @@ public class GridBehavior : MonoBehaviour
                 GridStat neighborStat = neighbor.GetComponent<GridStat>();
                 GridStat currentStat = current.GetComponent<GridStat>();
 
-                if (!neighborStat.isWalkable || closedSet.Contains(neighbor)) continue; 
+                if (!neighborStat.isWalkable || closedSet.Contains(neighbor)) continue;
 
                 int newCostToNeighbor = currentStat.gCost + GetDistance(current, neighbor);
                 if (newCostToNeighbor < neighborStat.gCost || !openSet.Contains(neighbor))
@@ -529,10 +529,10 @@ public class GridBehavior : MonoBehaviour
 
     void DetectGridClick()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit)) 
+        if (Physics.Raycast(ray, out hit))
         {
             Vector3 hitPos = hit.point;
             int x = Mathf.RoundToInt((hitPos.x - leftBottomLocation.x) / scale);
@@ -558,15 +558,15 @@ public class GridBehavior : MonoBehaviour
         int x = stat.x;
         int y = stat.y;
 
-        AddNeighborIfValid(neighbors, x + 1, y);  
-        AddNeighborIfValid(neighbors, x - 1, y);  
-        AddNeighborIfValid(neighbors, x, y + 1);  
-        AddNeighborIfValid(neighbors, x, y - 1);  
+        AddNeighborIfValid(neighbors, x + 1, y);
+        AddNeighborIfValid(neighbors, x - 1, y);
+        AddNeighborIfValid(neighbors, x, y + 1);
+        AddNeighborIfValid(neighbors, x, y - 1);
 
-        AddNeighborIfValid(neighbors, x + 1, y + 1);  
-        AddNeighborIfValid(neighbors, x - 1, y + 1);  
-        AddNeighborIfValid(neighbors, x + 1, y - 1);  
-        AddNeighborIfValid(neighbors, x - 1, y - 1);  
+        AddNeighborIfValid(neighbors, x + 1, y + 1);
+        AddNeighborIfValid(neighbors, x - 1, y + 1);
+        AddNeighborIfValid(neighbors, x + 1, y - 1);
+        AddNeighborIfValid(neighbors, x - 1, y - 1);
 
         return neighbors;
     }
@@ -577,7 +577,7 @@ public class GridBehavior : MonoBehaviour
         {
             GameObject neighbor = gridArray[x, y];
 
-            if (neighbor != null && neighbor.GetComponent<GridStat>().isWalkable) 
+            if (neighbor != null && neighbor.GetComponent<GridStat>().isWalkable)
             {
                 neighbors.Add(neighbor);
             }

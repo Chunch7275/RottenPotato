@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -12,7 +13,11 @@ public class HealthSystem : MonoBehaviour
     [Header("Regeneration Settings")]
     public bool regenerates = false;
     public int regenAmount = 1;
-    public float regenInterval = 1f; // seconds between each regen tick
+    public float regenInterval = 1f;
+
+    [Header("Scene Load On Death")]
+    public bool loadSceneOnDeath = false;
+    public string sceneToLoadOnDeath;
 
     private float regenTimer;
 
@@ -50,6 +55,18 @@ public class HealthSystem : MonoBehaviour
         if (explodeOnDeath && explosionPrefab != null)
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+
+        if (loadSceneOnDeath)
+        {
+            if (!string.IsNullOrEmpty(sceneToLoadOnDeath))
+            {
+                SceneManager.LoadScene(sceneToLoadOnDeath);
+            }
+            else
+            {
+                Debug.LogWarning("Scene loading is enabled, but no scene name is provided.");
+            }
         }
 
         Destroy(gameObject);

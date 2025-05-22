@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Env.Shared
-    second: {fileID: 6058368392311467867, guid: a633c2d972c927d49855832d9ffd0d74, type: 3}
+    second: {fileID: 2100000, guid: 0d9507bb8af1ce8428bfc2fd0ee4ec9a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

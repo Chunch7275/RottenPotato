@@ -107,6 +107,8 @@ MonoBehaviour:
   regenerates: 0
   regenAmount: 1
   regenInterval: 1
+  loadSceneOnDeath: 0
+  sceneToLoadOnDeath: 
 --- !u!114 &959362932483171673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc484128699322429e28b37bffd19d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRange: 1
+  damageRange: 2
   damageAmount: 2
   damageCooldown: 1
 --- !u!54 &4282623775204338043

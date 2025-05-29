@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc484128699322429e28b37bffd19d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRange: 1
+  damageRange: 2
   damageAmount: 2
   damageCooldown: 1
 --- !u!114 &900762427871451078
@@ -147,6 +147,8 @@ MonoBehaviour:
   regenerates: 0
   regenAmount: 1
   regenInterval: 1
+  loadSceneOnDeath: 0
+  sceneToLoadOnDeath: 
 --- !u!114 &41940924011804055
 MonoBehaviour:
   m_ObjectHideFlags: 0

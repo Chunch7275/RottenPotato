@@ -3659,7 +3659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 15
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10510,63 +10510,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554681247}
   m_CullTransparentMesh: 1
---- !u!1001 &1580231782
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.242712
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 52.189774
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8879724751019901255, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_Name
-      value: Peasant Nolant Yellow(Free Version) (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
 --- !u!1001 &1600625790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14157,7 +14100,8 @@ PrefabInstance:
       value: Peasant Nolant Yellow(Free Version) (26)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4316590979361725287, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
@@ -14500,68 +14444,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c7fb11f4c9729d4c8aab6f83d92238c, type: 3}
---- !u!1001 &3405672618703665724
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 52.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 844342965802869988, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7145813102446086675, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 35.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8879724751019901255, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-      propertyPath: m_Name
-      value: Peasant Nolant Yellow(Free Version)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1098057608773249252, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
 --- !u!1001 &8146862077081128815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14709,8 +14591,6 @@ SceneRoots:
   - {fileID: 589544272}
   - {fileID: 1884659757}
   - {fileID: 298014543}
-  - {fileID: 3405672618703665724}
-  - {fileID: 1580231782}
   - {fileID: 2129080660}
   - {fileID: 1836927475}
   - {fileID: 155751835}

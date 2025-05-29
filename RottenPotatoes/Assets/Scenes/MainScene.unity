@@ -10671,7 +10671,7 @@ MonoBehaviour:
   plant5Cost: 10
   plant6Cost: 20
   plant7Cost: 15
-  followerSpherePrefab: {fileID: 5577188098675781562, guid: 9c9b1c1740c28c642b0118e24124544f, type: 3}
+  followerSpherePrefab: {fileID: 919132149155446097, guid: cc504e3e1aa27f747b8567c7bfa33185, type: 3}
   moveSpeed: 4
   rows: 400
   columns: 400
@@ -14548,12 +14548,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7145813102446086675, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 35.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8879724751019901255, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
       propertyPath: m_Name
       value: Peasant Nolant Yellow(Free Version)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1098057608773249252, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d78e99987c43c428d795ac87ef69e1, type: 3}
